@@ -1,6 +1,10 @@
+// 针对请求的一些配置
+
 const host = 'http://localhost:5757';
 
 const config = {
-  host
+  host,
+  loginUrl: `${host}/weapp/login`,
+  userUrl: `${host}/weapp/user`
 };
 export default config;
