@@ -33,5 +33,16 @@ router.get('/message', controllers.message.get)
 router.post('/message', controllers.message.post)
 
 router.get('/demo',controllers.demo)
-
+// 增加图书，根据isbn号获取读书的信息
+router.post('/addbook',controllers.addbook)
+// 图书列表
+router.get('/booklist',controllers.booklist)
+// 图书详情
+router.get('/bookdetail',controllers.bookdetail)
+// 轮播图
+router.get('/top',controllers.top)
+// 增加评论
+router.post('/addcomment',controllers.addcomment)
+// 获取评论列表
+router.get('/commentlist',controllers.commentlist)
 module.exports = router

@@ -9,6 +9,15 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" type="text/stylus">
+  .MAIN_PRIMARY{
+    color #EA5A49
+  }
+  .TEXT-FOOTER{
+    text-align center
+    font-size 12px
+    margin-bottom 5px
+  }
+
   .btn {
     color white
     background #EA5A49
