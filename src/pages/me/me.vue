@@ -124,6 +124,9 @@
       YearProgress
     },
     onShow() {
+      wx.setNavigationBarTitle({
+        title: '我的'
+      });
       let userinfo = wx.getStorageSync('userinfo');
       if (userinfo) {
         this.userinfo = userinfo;

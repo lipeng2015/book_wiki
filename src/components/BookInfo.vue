@@ -48,6 +48,7 @@
   @import "../common/base";
 
   .book-info {
+    padding-bottom: 10px;
     .badge{
       display: inline-block;
       margin: 5px;

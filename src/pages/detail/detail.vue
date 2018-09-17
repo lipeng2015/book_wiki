@@ -1,7 +1,8 @@
 <template>
   <div>
     <BookInfo :info="info"></BookInfo>
-    <div class="comment">
+    <CommentList :comments="comments"></CommentList>
+    <div class="comment" v-if="showAdd">
       <textarea class="textarea" placeholder="请输入图书短评" v-model="comment" :maxlength="100"></textarea>
       <div class="location">地理位置:
         <switch color="#EA5A49" @change="getGeo" :checked="location"></switch>
@@ -14,12 +15,15 @@
       </div>
       <button class="btn" @click="addComment">评论</button>
     </div>
+    <div v-else class="TEXT-FOOTER">未登录或者已经评论过了</div>
+    <button open-type="share" class="btn">转发给好友</button>
   </div>
 </template>
 
 <script>
   import {get, post, showModal} from '@/util';
   import BookInfo from '../../components/BookInfo';
+  import CommentList from '../../components/CommentList';
 
   export default {
     mounted() {
@@ -29,6 +33,19 @@
       const userinfo = wx.getStorageSync('userinfo');
       if (userinfo) {
         this.userinfo = userinfo;
+      }
+    },
+    computed: {
+      showAdd() {
+        // 没登录
+        if (!this.userinfo.openId) {
+          return false;
+        }
+        // 评论列表能查到自己的openId
+        if (this.comments.filter(v => v.openid === this.userinfo.openId).length) {
+          return false;
+        }
+        return true;
       }
     },
     methods: {
@@ -88,17 +105,18 @@
         try {
           await post('/weapp/addcomment', data);
           this.comment = '';
+          this.getComments();
         } catch (e) {
           showModal('失败', e.msg);
         }
       },
       async getComments() {
-        const comments = await get('weapp/commentlist', {bookid: this.bookid});
-        this.comments = comments;
+        const comments = await get('/weapp/commentlist', {bookid: this.bookid});
+        this.comments = comments.list || [];
       }
     },
     components: {
-      BookInfo
+      BookInfo, CommentList
     },
     data() {
       return {
@@ -134,8 +152,9 @@
       margin-top: 10px;
       margin-left: 15px;
     }
-    .btn {
-      margin: 15px;
-    }
+  }
+  .btn {
+    margin-top: 15px;
+    width: rpx(700);
   }
 </style>
