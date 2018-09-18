@@ -53,7 +53,7 @@
       };
     },
     onShow() {
-      this.getList();
+      this.getList(true);
     },
     components: {
       Card, TopSwiper

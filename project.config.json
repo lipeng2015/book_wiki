@@ -9,6 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
+	"qcloudRoot": "./server/",
 	"appid": "wxd07a666ed41d0f97",
 	"projectname": "book_wiki",
 	"condition": {
